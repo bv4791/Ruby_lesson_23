@@ -21,17 +21,15 @@ post '/visit' do
 	@barber = params[ :barber]
     @color = params[ :color]
 
-    if @username == ""
-	    	@error = "Введите имя "
-	end    	
 
-	if @phone == ""
-		    @error = "Введите номер телефона"
-	end
+    # хеш
+	hh = { 	:username => 'Введите имя',
+			:phone => 'Введите телефон',
+			:datetime => 'Введите дату и время' }
+
 	
-    if @datetime == ""
-		    @error = "Введите дату и время"
-	end
+    @error = hh.select {|key,_| params[key] == ""}.values.join(", ")
+
 
 	if @error != ""    	
 	    	return erb :visit
